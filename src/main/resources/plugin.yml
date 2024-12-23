@@ -1,0 +1,15 @@
+name: SecretSanta
+version: '1.0.0'
+main: com.aelithron.secretsanta.SecretSanta
+api-version: '1.21'
+prefix: Secret Santa
+authors: [ Aelithron ]
+description: A secret santa plugin for Minecraft! Add a fun element to any Christmas event.
+website: https://github.com/aelithron/SecretSantaMC
+commands:
+  secretsanta:
+    description: The primary command of the Secret Santa plugin. Two modes, based on a config value!
+    aliases:
+      - ss
+  ssadmin:
+    description: The admin command of the Secret Santa plugin.

@@ -1,0 +1,33 @@
+# SecretSanta by Aelithron
+# https://github.com/aelithron/SecretSantaMC
+
+# Plugin Prefix
+# Appears before all messages.
+# Works with color codes, guide: https://wiki.ess3.net/mc
+Prefix: "&8[&cSecret &4Santa&8]"
+
+# Mode
+# This determines whether the plugin works to give or get gifts.
+# If this value is false, players can give their assignments a gift.
+# If this value is true, assignments can claim their gifts.
+Mode: false
+
+# Check For Updates
+# Checks for plugin updates and alerts you if one is available.
+CheckForUpdates: true
+
+# Secret Santa List
+# Stores players and gifts from Secret Santa.
+SecretSanta:
+  # [Format] <assignee_player>:
+  #     assigned: <player>
+  #     claimed: <boolean>
+  #     gifts:
+  #       - <item>
+  #       - <item>
+  #       ...
+
+# Auto-Assign List
+# A list of players that will be assigned for Secret Santa when the auto assign command is used.
+AutoAssignList:
+  # [Format] - <player>
