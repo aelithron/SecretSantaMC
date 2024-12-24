@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.UUID;
 
 public class GUIManager {
@@ -21,10 +22,13 @@ public class GUIManager {
         inv.setItem(8, ItemBuilder.closeButton());
 
         int checkSlotCount = 0; // This is here to make sure we don't overflow the GUI :3
-        for (ItemStack gift : CoreTools.getInstance().deserializeGifts(giftRecipient)) {
-            if (checkSlotCount >= 7) { break; }
-            inv.addItem(gift);
-            checkSlotCount++;
+        List<ItemStack> giftList = CoreTools.getInstance().deserializeGifts(giftRecipient);
+        if (giftList != null) {
+            for (ItemStack gift : giftList) {
+                if (checkSlotCount >= 7) { break; }
+                inv.addItem(gift);
+                checkSlotCount++;
+            }
         }
         return inv;
     }
@@ -35,10 +39,13 @@ public class GUIManager {
         inv.setItem(8, ItemBuilder.claimButton());
 
         int checkSlotCount = 0; // This is here to make sure we don't overflow the GUI :3
-        for (ItemStack gift : CoreTools.getInstance().deserializeGifts(player.getUniqueId())) {
-            if (checkSlotCount >= 7) { break; }
-            inv.addItem(gift);
-            checkSlotCount++;
+        List<ItemStack> giftList = CoreTools.getInstance().deserializeGifts(player.getUniqueId());
+        if (giftList != null) {
+            for (ItemStack gift : giftList) {
+                if (checkSlotCount >= 7) { break; }
+                inv.addItem(gift);
+                checkSlotCount++;
+            }
         }
         return inv;
     }
@@ -49,10 +56,13 @@ public class GUIManager {
         inv.setItem(8, ItemBuilder.closeButton());
 
         int checkSlotCount = 0; // This is here to make sure we don't overflow the GUI :3
-        for (ItemStack gift : CoreTools.getInstance().deserializeGifts(playerToCheck)) {
-            if (checkSlotCount >= 7) { break; }
-            inv.addItem(gift);
-            checkSlotCount++;
+        List<ItemStack> giftList = CoreTools.getInstance().deserializeGifts(playerToCheck);
+        if (giftList != null) {
+            for (ItemStack gift : giftList) {
+                if (checkSlotCount >= 7) { break; }
+                inv.addItem(gift);
+                checkSlotCount++;
+            }
         }
         return inv;
     }

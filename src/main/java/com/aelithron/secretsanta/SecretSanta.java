@@ -1,6 +1,7 @@
 package com.aelithron.secretsanta;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -48,7 +49,7 @@ public final class SecretSanta extends JavaPlugin implements Listener {
             UUID gifteeUUID = CoreTools.getInstance().getGifteeFromGifter(gifterUUID);
             if (gifteeUUID == null) {
                 for (ItemStack itemFromInv : e.getInventory().getContents()) {
-                    if (!itemFromInv.isSimilar(ItemBuilder.separator()) || !itemFromInv.isSimilar(ItemBuilder.closeButton())) {
+                    if (itemFromInv != null && itemFromInv.getType() != Material.AIR && !itemFromInv.isSimilar(ItemBuilder.separator()) && !itemFromInv.isSimilar(ItemBuilder.closeButton())) {
                         e.getPlayer().getWorld().dropItem(e.getPlayer().getLocation(), itemFromInv);
                     }
                 }
@@ -58,7 +59,7 @@ public final class SecretSanta extends JavaPlugin implements Listener {
             secretSanta.set(gifteeUUID + ".gifts", null);
             int itemIndex = 0;
             for (ItemStack item : e.getInventory().getContents()) {
-                if (!item.isSimilar(ItemBuilder.separator()) || !item.isSimilar(ItemBuilder.closeButton())) {
+                if (item != null && item.getType() != Material.AIR && !item.isSimilar(ItemBuilder.separator()) && !item.isSimilar(ItemBuilder.closeButton())) {
                     secretSanta.set(gifteeUUID + ".gifts." + itemIndex, item);
                     itemIndex++;
                 }
@@ -84,7 +85,7 @@ public final class SecretSanta extends JavaPlugin implements Listener {
             UUID gifteeUUID = CoreTools.getInstance().getAdminView(e.getPlayer().getUniqueId());
             if (gifteeUUID == null) {
                 for (ItemStack itemFromInv : e.getInventory().getContents()) {
-                    if (!itemFromInv.isSimilar(ItemBuilder.separator()) || !itemFromInv.isSimilar(ItemBuilder.closeButton())) {
+                    if (itemFromInv != null && itemFromInv.getType() != Material.AIR && !itemFromInv.isSimilar(ItemBuilder.separator()) && !itemFromInv.isSimilar(ItemBuilder.closeButton())) {
                         e.getPlayer().getWorld().dropItem(e.getPlayer().getLocation(), itemFromInv);
                     }
                 }
@@ -94,7 +95,7 @@ public final class SecretSanta extends JavaPlugin implements Listener {
             secretSanta.set(gifteeUUID + ".gifts", null);
             int itemIndex = 0;
             for (ItemStack item : e.getInventory().getContents()) {
-                if (!item.isSimilar(ItemBuilder.separator()) || !item.isSimilar(ItemBuilder.closeButton())) {
+                if (item != null && item.getType() != Material.AIR && !item.isSimilar(ItemBuilder.separator()) && !item.isSimilar(ItemBuilder.closeButton())) {
                     secretSanta.set(gifteeUUID + ".gifts." + itemIndex, item);
                     itemIndex++;
                 }
