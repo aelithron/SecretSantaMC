@@ -1,17 +1,20 @@
 package com.aelithron.secretsanta;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Objects;
+import java.util.*;
 
 public class CoreTools {
     private SecretSanta plugin;
     private static CoreTools instance;
+    private Map<UUID, UUID> adminsViewingMenus = new HashMap<>();
 
     public static CoreTools getInstance() {
         if (instance == null) {
@@ -53,4 +56,62 @@ public class CoreTools {
             }
         }
     }
+
+    public UUID getGifteeFromGifter(UUID gifter) {
+        ConfigurationSection secretSanta = plugin.getConfig().getConfigurationSection("SecretSanta");
+        if (secretSanta == null) {
+            plugin.getLogger().severe("Secret Santa config is missing! This is a MAJOR error and will break the plugin!");
+            return null;
+        }
+        for (String playerUUIDstr : secretSanta.getKeys(false)) {
+            UUID gifteeAssignment = UUID.fromString(Objects.requireNonNull(secretSanta.getString(playerUUIDstr + ".gifter")));
+            if (gifter.equals(gifteeAssignment)) {
+                return UUID.fromString(playerUUIDstr);
+            }
+        }
+        return null;
+    }
+    public UUID getGifterFromGiftee(UUID giftee) {
+        ConfigurationSection secretSanta = plugin.getConfig().getConfigurationSection("SecretSanta");
+        if (secretSanta == null) {
+            plugin.getLogger().severe("Secret Santa config is missing! This is a MAJOR error and will break the plugin!");
+            return null;
+        }
+        if (!secretSanta.contains(String.valueOf(giftee))) { return null; }
+        return UUID.fromString(Objects.requireNonNull(secretSanta.getString(giftee + ".gifter")));
+    }
+
+    public Boolean hasReceievedGift(UUID giftee) {
+        ConfigurationSection secretSanta = plugin.getConfig().getConfigurationSection("SecretSanta");
+        if (secretSanta == null) {
+            plugin.getLogger().severe("Secret Santa config is missing! This is a MAJOR error and will break the plugin!");
+            return null;
+        }
+        ConfigurationSection gifts = secretSanta.getConfigurationSection(giftee + ".gifts");
+        return gifts != null && !gifts.getKeys(false).isEmpty();
+    }
+
+    public List<ItemStack> deserializeGifts(UUID giftee) {
+        ConfigurationSection secretSanta = plugin.getConfig().getConfigurationSection("SecretSanta");
+        if (secretSanta == null) {
+            plugin.getLogger().severe("Secret Santa config is missing! This is a MAJOR error and will break the plugin!");
+            return null;
+        }
+        ConfigurationSection gifts = secretSanta.getConfigurationSection(giftee + ".gifts");
+        if (gifts == null) { return null; }
+        List<ItemStack> giftList = new ArrayList<>();
+        for (String key : gifts.getKeys(false)) {
+            giftList.add(gifts.getItemStack(key));
+        }
+        return giftList;
+    }
+
+    void setAdminView(UUID admin, UUID viewing) {
+        if (viewing == null) {
+            adminsViewingMenus.remove(admin);
+            return;
+        }
+        adminsViewingMenus.put(admin, viewing);
+    }
+    UUID getAdminView(UUID admin) { return adminsViewingMenus.get(admin); }
 }

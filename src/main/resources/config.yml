@@ -19,12 +19,12 @@ CheckForUpdates: true
 # Secret Santa List
 # Stores players and gifts from Secret Santa.
 SecretSanta:
-  # [Format] <assignee_player>:
-  #     assigned: <player>
+  # [Format] <giftee>:
+  #     gifter: <player>
   #     claimed: <boolean>
   #     gifts:
-  #       - <item>
-  #       - <item>
+  #       <item>
+  #       <item>
   #       ...
 
 # Auto-Assign List
