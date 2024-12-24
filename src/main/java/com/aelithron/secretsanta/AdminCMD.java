@@ -95,10 +95,6 @@ public class AdminCMD implements CommandExecutor {
                     autoAssign.remove(earlyName);
                 }
             }
-            if (autoAssign.size() % 2 != 0) {
-                sender.sendMessage(prefix + ChatColor.RED + "Auto-Assign list must have an even number of entries!");
-                return false;
-            }
             // Begin Auto Assign! :3
             List<UUID> gifters = new ArrayList<>();
             List<UUID> giftees = new ArrayList<>();
