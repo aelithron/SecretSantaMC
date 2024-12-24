@@ -77,7 +77,9 @@ public final class SecretSanta extends JavaPlugin implements Listener {
             List<ItemStack> gifts = CoreTools.getInstance().deserializeGifts(gifteeUUID);
             if (gifts == null) { return; }
             for (ItemStack gift : gifts) { e.getPlayer().getInventory().addItem(gift); }
+            reloadConfig();
             getConfig().set("SecretSanta." + gifteeUUID + ".claimed", true);
+            saveConfig();
             e.getPlayer().sendMessage(CoreTools.getInstance().getPrefix() + ChatColor.GREEN + "Your gift has been delivered!");
             return;
         }
