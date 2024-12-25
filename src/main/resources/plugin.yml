@@ -1,5 +1,5 @@
 name: SecretSanta
-version: '1.0.1'
+version: '${version}'
 main: com.aelithron.secretsanta.SecretSanta
 api-version: '1.21'
 prefix: Secret Santa

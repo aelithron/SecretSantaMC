@@ -107,9 +107,15 @@ public class AdminCMD implements CommandExecutor {
             plugin.reloadConfig();
             for (UUID gifter : gifters) {
                 if (giftees.isEmpty()) { break; }
-                int randomIndex = rand.nextInt(giftees.size());
-                UUID giftee = giftees.get(randomIndex);
-                giftees.remove(randomIndex);
+                UUID giftee = null;
+                while (giftee == null) {
+                    int randomIndex = rand.nextInt(giftees.size());
+                    giftee = giftees.get(randomIndex);
+                    if (gifter.equals(giftee)) {
+                        giftee = null; // try again
+                    }
+                }
+                giftees.remove(giftee);
                 plugin.getConfig().set("SecretSanta." + giftee + ".gifter", gifter.toString());
             }
             plugin.saveConfig();
